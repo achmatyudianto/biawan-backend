@@ -3,7 +3,6 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Company;
 
 class User extends JsonResource
 {
@@ -15,13 +14,6 @@ class User extends JsonResource
             $imageURL = url('images/no-user-image.png');
         }
 
-        $company = Company::find($this->company_id);
-        $company = [
-            'id'            => $company->id,
-            'company_name'  => $company->company_name,
-            'address'       => (string)$company->address,
-        ];
-
         return [
             'id'            => $this->id,
             'name'          => $this->name,
@@ -29,7 +21,11 @@ class User extends JsonResource
             'mobile_phone'  => (string)$this->mobile_phone,
             'avatar'        => $imageURL,
             'registered'    => $this->created_at->diffForHumans(),
-            'company'       => $company,
+            'company'       => [
+                'id'            => $this->company->id,
+                'company_name'  => $this->company->company_name,
+                'address'       => (string)$this->company->address,  
+            ],
         ];
     }
 

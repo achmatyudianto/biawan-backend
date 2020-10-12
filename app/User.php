@@ -7,13 +7,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Company;
 use App\Cage;
+use App\Animal;
 
 class User extends Authenticatable
 {
     use Notifiable;
 
     protected $fillable = [
-        'company_id', 'name', 'email', 'password', 'api_token', 'mobile_phone', 'avatar'
+        'id', 'company_id', 'name', 'email', 'password', 'api_token', 'mobile_phone', 'avatar',
     ];
 
     protected $hidden = [
@@ -26,16 +27,26 @@ class User extends Authenticatable
 
     public function company()
     {
-        $this->belongsTo(Company::class, 'company_id');
+        return $this->belongsTo(Company::class, 'company_id');
     }
 
     public function cages()
     {
-        $this->hasMany(Cage::class);
+        return $this->hasMany(Cage::class, 'id');
+    }
+
+    public function animals()
+    {
+        return $this->hasMany(Animal::class, 'id');
     }
 
     public function ownsCage(Cage $cage)
     {
         return auth()->user()->company_id == $cage->company_id;
+    }
+
+    public function ownsAnimal(Animal $animal)
+    {
+        return auth()->user()->company_id == $animal->company_id;
     }
 }
