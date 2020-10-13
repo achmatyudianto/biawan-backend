@@ -6,12 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use App\Company;
 use App\Animal;
 use App\User;
-use App\Cost;
 
-class Animal extends Model
+class Cost extends Model
 {
     protected $fillable = [
-        'id', 'company_id', 'cage_id', 'animal', 'animal_name', 'buy', 'sold', 'status_sold', 'status', 'created_by',
+        'id', 'company_id', 'animal_id', 'cost', 'note', 'created_by', 
     ];
 
     public function company()
@@ -19,18 +18,13 @@ class Animal extends Model
     	return $this->belongsTo(Company::class, 'company_id');
     }
 
-    public function cage()
+    public function animal()
     {
-    	return $this->belongsTo(Animal::class, 'cage_id');
+    	return $this->belongsTo(Animal::class, 'animal_id');
     }
 
     public function user()
     {
     	return $this->belongsTo(User::class, 'created_by');
-    }
-
-    public function costs()
-    {
-        return $this->hasMany(Cost::class, 'id');
     }
 }

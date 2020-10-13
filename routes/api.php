@@ -16,4 +16,9 @@ Route::group(['middleware' => 'auth:api'], function(){
 	Route::post('animal', 'AnimalController@create'); //create
 	Route::get('animal', 'AnimalController@read'); //read
 	Route::put('animal/{animal}', 'AnimalController@update'); //update
+	// Cost
+	Route::post('cost', 'CostController@create'); //create
+	Route::get('cost', 'CostController@read'); //read
+	Route::put('cost/{cost}', 'CostController@update'); //update
+	Route::delete('cost/{cost}', 'CostController@delete'); //delete
 });

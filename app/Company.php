@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\User;
 use App\Cage;
 use App\Animal;
+use App\Cost;
 
 class Company extends Model
 {
@@ -26,5 +27,10 @@ class Company extends Model
     public function animals()
     {
         return $this->hasMany(Animal::class, 'id');
+    }
+
+    public function costs()
+    {
+        return $this->hasMany(Cost::class, 'id');
     }
 }
