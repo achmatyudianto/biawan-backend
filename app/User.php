@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use App\Company;
 use App\Cage;
 use App\Animal;
+use App\Cost;
 
 class User extends Authenticatable
 {
@@ -40,6 +41,11 @@ class User extends Authenticatable
         return $this->hasMany(Animal::class, 'id');
     }
 
+    public function costs()
+    {
+        return $this->hasMany(Cost::class, 'id');
+    }
+
     public function ownsCage(Cage $cage)
     {
         return auth()->user()->company_id == $cage->company_id;
@@ -48,5 +54,10 @@ class User extends Authenticatable
     public function ownsAnimal(Animal $animal)
     {
         return auth()->user()->company_id == $animal->company_id;
+    }
+
+    public function ownsCost(Cost $cost)
+    {
+        return auth()->user()->company_id == $cost->company_id;
     }
 }
